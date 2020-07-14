@@ -5,54 +5,68 @@ class Not extends StatefulWidget {
 }
 
 class _NotState extends State<Not> {
+  String search = "";
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xf582C9E0),
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Text('Scholar.Co',
-              style: TextStyle(
-                color: Color(0xf51446A0),
-              )),
-        ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(
+      backgroundColor: Color(0xf582C9E0),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
               child: Column(
                 children: <Widget>[
-                  Image(
-                    image: AssetImage('images/bell.png'),
-                  ),
-                  Image(
-                    image: AssetImage('images/bell.png'),
-                  ),
-                  Image(
-                    image: AssetImage('images/bell.png'),
-                  ),
-                  Image(
-                    image: AssetImage('images/bell.png'),
-                  ),
-                  Image(
-                    image: AssetImage('images/bell.png'),
-                  ),
+                  // lsit of teachers
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: 12,
+                      itemBuilder: (context, index) {
+                        return Notification();
+                      }),
                 ],
               ),
             ),
-            SizedBox(
-              child: Column(
-                children: <Widget>[
-                  Text('Notification'),
-                  Text('Notification'),
-                  Text('Notification'),
-                  Text('Notification'),
-                  Text('Notification'),
-                ],
-              ),
-           ),
-         ],
+          ),
         ),
+      ),
     );
+  }
+}
+
+class Notification extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          child: Column(
+            children: <Widget>[
+              Image(
+                image: AssetImage('images/bell.png'),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          child: Column(
+            children: <Widget>[
+              Text(
+                'Notification',
+                style: TextStyle(
+                color: Colors.white,
+                fontSize: 40,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+            
   }
 }

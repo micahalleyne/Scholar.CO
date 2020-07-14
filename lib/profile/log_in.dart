@@ -1,3 +1,5 @@
+import 'package:Scholar_co/dashboard.dart';
+import 'package:Scholar_co/home.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -34,7 +36,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 40,
                   ),
                   TextFormField(
                     obscureText: false,
@@ -80,6 +82,10 @@ class _LoginState extends State<Login> {
                       minWidth: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                       onPressed: () async {
+                        Navigator.push(
+                          context,
+                            MaterialPageRoute(builder: (context) => Home()),
+                          );
                         if (_formKey.currentState.validate()) {
                           print(email);
                           print(password);
