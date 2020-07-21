@@ -1,4 +1,5 @@
 import 'package:Scholar_co/dashboard.dart';
+import 'package:Scholar_co/profile/sign_up.dart';
 import 'package:Scholar_co/teachers/teachers.dart';
 import 'package:flutter/material.dart';
 import 'package:Scholar_co/notifications/notification.dart';
@@ -19,7 +20,6 @@ class _HomeState extends State<Home> {
     Dashboard(),
     Teachers(),
     Not(),
-    Login(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
           'Scholar.Co',
           style: TextStyle(
             color: Color(0xf51446A0),
-          )
+          ),
         ),
       ),
       body: Center(
@@ -77,20 +77,6 @@ class _HomeState extends State<Home> {
               ),
             title: Text(
               'Notifications',
-              style: TextStyle(
-                fontSize: 15,
-                color: Color(0xFF6c757d),
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle,
-              size: 35,
-              color: Color(0xFF6c757d),
-            ),
-            title: Text(
-              'Log In',
               style: TextStyle(
                 fontSize: 15,
                 color: Color(0xFF6c757d),

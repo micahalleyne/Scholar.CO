@@ -1,3 +1,7 @@
+import 'package:Scholar_co/auth.dart';
+import 'package:Scholar_co/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:Scholar_co/home.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatefulWidget {
@@ -10,6 +14,7 @@ class _SignupState extends State<Signup> {
   String email = "";
   String password = "";
   final _formKey = GlobalKey<FormState>();
+  Auth auth = Auth();
 
   @override
   Widget build(BuildContext context) {
@@ -53,22 +58,6 @@ class _SignupState extends State<Signup> {
                     height: 30,
                   ),
                   TextFormField(
-                    obscureText: false,
-                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                    onChanged: (val) {
-                      setState(() => email = val.trim());
-                    },
-                    decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        hintText: 'Address',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0))),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
                     obscureText: true,
                     validator: (val) => val.length < 6
                         ? 'Enter a password 6+ chars long'
@@ -95,13 +84,18 @@ class _SignupState extends State<Signup> {
                       minWidth: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                       onPressed: () async {
+                        // Navigator.push(
+                        //   context,
+                        //     MaterialPageRoute(builder: (context) => Home()),
+                        //   );
                         if (_formKey.currentState.validate()) {
-                          print(email);
-                          print(password);
+                          User user = await auth.registerUser(email, password);
+                          print(user.uid);
+                          print(user.email);
                         }
                       },
                       child: Text(
-                        "Login",
+                        "Sign Up",
                         style: TextStyle(
                           color: Color(0xf582C9E0),
                         ),
@@ -118,3 +112,4 @@ class _SignupState extends State<Signup> {
     );
   }
 }
+

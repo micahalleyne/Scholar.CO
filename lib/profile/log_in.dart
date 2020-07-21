@@ -1,4 +1,6 @@
-import 'package:Scholar_co/dashboard.dart';
+import 'package:Scholar_co/auth.dart';
+import 'package:Scholar_co/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Scholar_co/home.dart';
 import 'package:flutter/material.dart';
 
@@ -8,10 +10,10 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   // variables for user email & password
-
   String email = "";
   String password = "";
   final _formKey = GlobalKey<FormState>();
+  Auth auth = Auth();
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,8 @@ class _LoginState extends State<Login> {
                   Text(
                     'Log In',
                     style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 45,
+                      color: Colors.white,
+                      fontSize: 45,
                     ),
                   ),
                   SizedBox(
@@ -63,13 +65,12 @@ class _LoginState extends State<Login> {
                       setState(() => password = val.trim());
                     },
                     decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        hintText: 'Password',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0)
-                            ),
-                          ),
+                      contentPadding:
+                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                      hintText: 'Password',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(32.0)),
+                    ),
                   ),
                   SizedBox(
                     height: 40,
@@ -82,13 +83,20 @@ class _LoginState extends State<Login> {
                       minWidth: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                       onPressed: () async {
-                        Navigator.push(
-                          context,
-                            MaterialPageRoute(builder: (context) => Home()),
-                          );
                         if (_formKey.currentState.validate()) {
-                          print(email);
-                          print(password);
+                          User user = await auth.loginUser(email, password);
+                          print(user.uid);
+                          print(user.email);
+                        }
+                        FirebaseUser user =
+                            await FirebaseAuth.instance.currentUser();
+                        if (user != null) {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => Home()),
+                          // );
+                        } else {
+                          // log in
                         }
                       },
                       child: Text(
