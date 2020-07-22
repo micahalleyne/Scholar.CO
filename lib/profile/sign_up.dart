@@ -1,4 +1,5 @@
-import 'package:Scholar_co/auth.dart';
+import 'package:Scholar_co/services/auth.dart';
+import 'package:Scholar_co/profile/log_in.dart';
 import 'package:Scholar_co/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Scholar_co/home.dart';
@@ -43,6 +44,7 @@ class _SignupState extends State<Signup> {
                   ),
                   TextFormField(
                     obscureText: false,
+                    keyboardType: TextInputType.emailAddress,
                     validator: (val) => val.isEmpty ? 'Enter an email' : null,
                     onChanged: (val) {
                       setState(() => email = val.trim());
@@ -84,18 +86,43 @@ class _SignupState extends State<Signup> {
                       minWidth: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                       onPressed: () async {
-                        // Navigator.push(
-                        //   context,
-                        //     MaterialPageRoute(builder: (context) => Home()),
-                        //   );
                         if (_formKey.currentState.validate()) {
                           User user = await auth.registerUser(email, password);
                           print(user.uid);
                           print(user.email);
+                          Navigator.push(
+                          context,
+                            MaterialPageRoute(builder: (context) => Home()),
+                          );
                         }
                       },
                       child: Text(
                         "Sign Up",
+                        style: TextStyle(
+                          color: Color(0xf582C9E0),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Material(
+                    elevation: 10.0,
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: Colors.white,
+                    child: MaterialButton(
+                      minWidth: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
+                      },
+                      child: Text(
+                        "Login",
                         style: TextStyle(
                           color: Color(0xf582C9E0),
                         ),

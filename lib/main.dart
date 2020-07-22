@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 
 void main() {
-  Widget _defaultHome = Home();
+  Widget _defaultHome = Login();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: _defaultHome,

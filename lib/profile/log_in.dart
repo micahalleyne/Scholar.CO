@@ -1,4 +1,5 @@
-import 'package:Scholar_co/auth.dart';
+import 'package:Scholar_co/services/auth.dart';
+import 'package:Scholar_co/profile/sign_up.dart';
 import 'package:Scholar_co/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Scholar_co/home.dart';
@@ -91,16 +92,41 @@ class _LoginState extends State<Login> {
                         FirebaseUser user =
                             await FirebaseAuth.instance.currentUser();
                         if (user != null) {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => Home()),
-                          // );
+                          Navigator.push(
+                          context,
+                            MaterialPageRoute(builder: (context) => Home()),
+                          );
                         } else {
-                          // log in
+                          showAlertDialog(context);
                         }
                       },
                       child: Text(
                         "Login",
+                        style: TextStyle(
+                          color: Color(0xf582C9E0),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Material(
+                    elevation: 10.0,
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: Colors.white,
+                    child: MaterialButton(
+                      minWidth: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Signup()),
+                        );
+                      },
+                      child: Text(
+                        "Sign Up",
                         style: TextStyle(
                           color: Color(0xf582C9E0),
                         ),
@@ -116,4 +142,32 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context) {
+
+  // set up the button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () { 
+      Navigator.of(context).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("My title"),
+    content: Text("This is my message."),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

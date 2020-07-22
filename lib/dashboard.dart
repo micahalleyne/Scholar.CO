@@ -1,3 +1,4 @@
+import 'package:Scholar_co/teachers/teachers.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
@@ -15,14 +16,34 @@ class _DashboardState extends State<Dashboard> {
       padding: EdgeInsets.fromLTRB(32, 32, 32, 32),
       child: Column(
         children: [
+          Material(
+            color: Color(0xf582C9E0),
+            child: MaterialButton(
+              minWidth: 200,
+              padding: EdgeInsets.fromLTRB(295.0, 5.0, 0, 15.0),
+              onPressed: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Teachers()),
+                );
+              },
+              child: Text(
+                "More",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
           Card(
             elevation: 4,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             child: Container(
-              height: 215,
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.fromLTRB(0, 15.0, 0, 15.0),
+              height: 190,
+              width: 400,
+              padding: EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   color: Colors.white,
@@ -46,7 +67,7 @@ class _DashboardState extends State<Dashboard> {
                           'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80'),
                     ),
                     SizedBox(
-                      width: 40,
+                      width: 30,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +76,7 @@ class _DashboardState extends State<Dashboard> {
                           'Name',
                           style: TextStyle(
                             color: Color(0xff6c757d),
-                            fontSize: 22,
+                            fontSize: 18,
                             fontWeight: FontWeight.w200,
                           ),
                         ),
@@ -66,7 +87,7 @@ class _DashboardState extends State<Dashboard> {
                           'Class',
                           style: TextStyle(
                             color: Color(0xff6c757d),
-                            fontSize: 22,
+                            fontSize: 18,
                             fontWeight: FontWeight.w200,
                           ),
                         ),
@@ -77,7 +98,7 @@ class _DashboardState extends State<Dashboard> {
                           'Age Group',
                           style: TextStyle(
                             color: Color(0xff6c757d),
-                            fontSize: 22,
+                            fontSize: 18,
                             fontWeight: FontWeight.w200,
                           ),
                         ),
