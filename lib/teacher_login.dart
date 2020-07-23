@@ -1,21 +1,23 @@
+import 'dart:developer';
+
+import 'package:Scholar_co/home.dart';
+import 'package:Scholar_co/landing.dart';
 import 'package:Scholar_co/services/auth.dart';
-import 'package:Scholar_co/profile/sign_up.dart';
+import 'package:Scholar_co/services/data_service.dart';
 import 'package:Scholar_co/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:Scholar_co/home.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
-  _LoginState createState() => _LoginState();
+class TLogin extends StatefulWidget {
+  _TLoginState createState() => _TLoginState();
 }
 
-class _LoginState extends State<Login> {
-  // variables for user email & password
+class _TLoginState extends State<TLogin> {
   String email = "";
   String password = "";
   final _formKey = GlobalKey<FormState>();
   Auth auth = Auth();
-
+  DataService service = DataService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +31,13 @@ class _LoginState extends State<Login> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 250,
+                    height: 175,
                   ),
                   Text(
-                    'Log In',
+                    'Teacher Sign Up',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 45,
+                    color: Colors.white,
+                    fontSize: 40,
                     ),
                   ),
                   SizedBox(
@@ -43,35 +45,53 @@ class _LoginState extends State<Login> {
                   ),
                   TextFormField(
                     obscureText: false,
-                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                    onChanged: (val) {
-                      setState(() => email = val.trim());
-                    },
+                    validator: (val) => val.isEmpty ? 'Enter First Name' : null,
                     decoration: InputDecoration(
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        hintText: 'Email',
+                        hintText: 'First Name',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32.0))),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   TextFormField(
-                    obscureText: true,
-                    validator: (val) => val.length < 6
-                        ? 'Enter a password 6+ chars long'
-                        : null,
-                    onChanged: (val) {
-                      setState(() => password = val.trim());
-                    },
+                    obscureText: false,
+                    validator: (val) => val.isEmpty ? 'Enter Last Name' : null,
                     decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      hintText: 'Password',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32.0)),
-                    ),
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'Last Name',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    obscureText: false,
+                    keyboardType: TextInputType.number,
+                    validator: (val) => val.isEmpty ? 'Enter Grade' : null,
+                    decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'Grade',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    obscureText: false,
+                    validator: (val) => val.isEmpty ? 'Enter a Subject' : null,
+                    decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'Subject',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                   ),
                   SizedBox(
                     height: 40,
@@ -85,24 +105,19 @@ class _LoginState extends State<Login> {
                       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          User user = await auth.loginUser(email, password);
-                          print(user.uid);
-                          print(user.email);
-                        }
-                        FirebaseUser user =
-                            await FirebaseAuth.instance.currentUser();
-                        if (user != null) {
-                          alertDialog(context);
+                          User user = await service.saveTeacher(fname, lname, grade, subject);
+                          print(user.fname);
+                          print(user.lname);
+                          print(user.grade);
+                          print(user.subject);
                           Navigator.push(
                           context,
                             MaterialPageRoute(builder: (context) => Home()),
                           );
-                        } else {
-                          showAlertDialog(context);
                         }
                       },
                       child: Text(
-                        "Login",
+                        "Sign Up",
                         style: TextStyle(
                           color: Color(0xf582C9E0),
                         ),
@@ -123,11 +138,11 @@ class _LoginState extends State<Login> {
                       onPressed: () async {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Signup()),
+                          MaterialPageRoute(builder: (context) => Landing()),
                         );
                       },
                       child: Text(
-                        "Sign Up",
+                        "Back",
                         style: TextStyle(
                           color: Color(0xf582C9E0),
                         ),
@@ -145,57 +160,3 @@ class _LoginState extends State<Login> {
   }
 }
 
-showAlertDialog(BuildContext context) {
-
-  // set up the button
-  Widget okButton = FlatButton(
-    child: Text("OK"),
-    onPressed: () { 
-      Navigator.of(context).pop();
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text("Wrong Log In"),
-    content: Text("Username or Password dont match"),
-    actions: [
-      okButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
-alertDialog(BuildContext context) {
-
-  // set up the button
-  Widget okButton = FlatButton(
-    child: Text("OK"),
-    onPressed: () { 
-      Navigator.of(context).pop();
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text("You Have Logged In"),
-    actions: [
-      okButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}

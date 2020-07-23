@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import 'package:Scholar_co/notifications/notification.dart';
+import 'package:Scholar_co/teacher_login.dart';
 import 'package:Scholar_co/teachers/teachers.dart';
 import 'package:Scholar_co/profile/log_in.dart';
 import 'package:Scholar_co/profile/sign_up.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/material.dart';
 
 
 void main() {
-  Widget _defaultHome = Login();
+  Widget _defaultHome = TLogin();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: _defaultHome,

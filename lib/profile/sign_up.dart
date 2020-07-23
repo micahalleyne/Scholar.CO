@@ -1,3 +1,4 @@
+import 'package:Scholar_co/landing.dart';
 import 'package:Scholar_co/services/auth.dart';
 import 'package:Scholar_co/profile/log_in.dart';
 import 'package:Scholar_co/user.dart';
@@ -92,7 +93,7 @@ class _SignupState extends State<Signup> {
                           print(user.email);
                           Navigator.push(
                           context,
-                            MaterialPageRoute(builder: (context) => Home()),
+                            MaterialPageRoute(builder: (context) => Landing()),
                           );
                         }
                       },
