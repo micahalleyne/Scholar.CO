@@ -4,7 +4,8 @@ import 'package:Scholar_co/home.dart';
 import 'package:Scholar_co/landing.dart';
 import 'package:Scholar_co/services/auth.dart';
 import 'package:Scholar_co/services/data_service.dart';
-import 'package:Scholar_co/user.dart';
+import 'package:Scholar_co/model/user.dart';
+import 'package:Scholar_co/model/teacher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -105,12 +106,11 @@ class _TLoginState extends State<TLogin> {
                       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          // User user = await service.saveTeacher(fname, lname, grade, subject);
+                          // Teach user = await service.saveTeacher(fname, lname, grade, subject);
                           // print(user.fname);
                           // print(user.lname);
                           // print(user.grade);
                           // print(user.subject);
-                          await db.collection("user");
                           Navigator.push(
                           context,
                             MaterialPageRoute(builder: (context) => Home()),

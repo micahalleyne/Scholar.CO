@@ -1,6 +1,6 @@
 import 'package:Scholar_co/services/auth.dart';
 import 'package:Scholar_co/profile/sign_up.dart';
-import 'package:Scholar_co/user.dart';
+import 'package:Scholar_co/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Scholar_co/home.dart';
 import 'package:flutter/material.dart';
