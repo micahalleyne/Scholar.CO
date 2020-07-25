@@ -8,6 +8,7 @@ import 'package:Scholar_co/model/user.dart';
 import 'package:Scholar_co/model/teacher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TLogin extends StatefulWidget {
   _TLoginState createState() => _TLoginState();
@@ -16,11 +17,14 @@ class TLogin extends StatefulWidget {
 class _TLoginState extends State<TLogin> {
   String email = "";
   String password = "";
+  String fname = "";
+  String lname = "";
+  String grade = "";
+  String subject = "";
   final _formKey = GlobalKey<FormState>();
-  Auth auth = Auth();
-  DataService service = DataService();
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return Scaffold(
       backgroundColor: Color(0xf582C9E0),
       body: Padding(
@@ -37,8 +41,8 @@ class _TLoginState extends State<TLogin> {
                   Text(
                     'Teacher Sign Up',
                     style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
+                      color: Colors.white,
+                      fontSize: 40,
                     ),
                   ),
                   SizedBox(
@@ -47,6 +51,9 @@ class _TLoginState extends State<TLogin> {
                   TextFormField(
                     obscureText: false,
                     validator: (val) => val.isEmpty ? 'Enter First Name' : null,
+                    onChanged: (val) {
+                      setState(() => fname = val.trim());
+                    },
                     decoration: InputDecoration(
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -60,6 +67,9 @@ class _TLoginState extends State<TLogin> {
                   TextFormField(
                     obscureText: false,
                     validator: (val) => val.isEmpty ? 'Enter Last Name' : null,
+                    onChanged: (val) {
+                      setState(() => lname = val.trim());
+                    },
                     decoration: InputDecoration(
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -73,7 +83,11 @@ class _TLoginState extends State<TLogin> {
                   TextFormField(
                     obscureText: false,
                     keyboardType: TextInputType.number,
-                    validator: (val) => val.isEmpty ? 'Enter Grade' : null,
+                    validator: (val) =>
+                        val.isEmpty ? 'Only Enter a Number' : null,
+                    onChanged: (val) {
+                      setState(() => grade = val.trim());
+                    },
                     decoration: InputDecoration(
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -87,6 +101,9 @@ class _TLoginState extends State<TLogin> {
                   TextFormField(
                     obscureText: false,
                     validator: (val) => val.isEmpty ? 'Enter a Subject' : null,
+                    onChanged: (val) {
+                      setState(() => subject = val.trim());
+                    },
                     decoration: InputDecoration(
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -106,13 +123,10 @@ class _TLoginState extends State<TLogin> {
                       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          // Teach user = await service.saveTeacher(fname, lname, grade, subject);
-                          // print(user.fname);
-                          // print(user.lname);
-                          // print(user.grade);
-                          // print(user.subject);
+                          await DataService(uid: user.uid)
+                              .saveTeacher(fname, lname, grade, subject);
                           Navigator.push(
-                          context,
+                            context,
                             MaterialPageRoute(builder: (context) => Home()),
                           );
                         }
@@ -160,4 +174,3 @@ class _TLoginState extends State<TLogin> {
     );
   }
 }
-

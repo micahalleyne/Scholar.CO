@@ -1,14 +1,7 @@
 // Copyright 2018 The Flutter team. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'package:Scholar_co/model/user.dart';
-import 'package:Scholar_co/notifications/notification.dart';
 import 'package:Scholar_co/services/auth.dart';
-import 'package:Scholar_co/teacher_login.dart';
-import 'package:Scholar_co/teachers/teachers.dart';
-import 'package:Scholar_co/profile/log_in.dart';
-import 'package:Scholar_co/profile/sign_up.dart';
-import 'package:Scholar_co/home.dart';
 import 'package:Scholar_co/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider.value(
       value: Auth().user,
+      catchError: (_, __) => null,
       child: MaterialApp(
         home: Wrapper(),
       ),

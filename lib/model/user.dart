@@ -1,6 +1,14 @@
-class User{
-  final String uid;
-  final String email;
+class User {
+  String uid;
+  String email;
 
-  User({ this.uid, this.email, });
+  User({
+    this.uid,
+    this.email,
+  });
+
+  // User.fromJsonMap(this.uid, this.email) {
+  //   this.uid = uid;
+  //   this.email = email;
+  // }
 }

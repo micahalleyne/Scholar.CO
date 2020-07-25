@@ -13,14 +13,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final Auth _auth = Auth();
   int _selectedIndex = 0;
-    void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
   final widgetOptions = [
     Dashboard(),
-    Teachers(),
+    TeachersData(),
     Not(),
   ];
   @override
@@ -37,15 +38,15 @@ class _HomeState extends State<Home> {
         ),
         actions: <Widget>[
           FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text(
-              'Logout'
-            ),
-            onPressed: () async {
+              label: Text('Logout'),
+              icon: Icon(Icons.block),
+              onPressed: () async {
                 await _auth.signout();
-            }
-          ),
-          
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Signup()),
+                );
+              }),
         ],
       ),
       body: Center(
@@ -77,7 +78,7 @@ class _HomeState extends State<Home> {
             ),
             title: Text(
               'Teachers',
-             style: TextStyle(
+              style: TextStyle(
                 fontSize: 15,
                 color: Color(0xFF6c757d),
               ),
@@ -88,7 +89,7 @@ class _HomeState extends State<Home> {
               Icons.notifications_none,
               size: 35,
               color: Color(0xFF6c757d),
-              ),
+            ),
             title: Text(
               'Notifications',
               style: TextStyle(
@@ -105,5 +106,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-  

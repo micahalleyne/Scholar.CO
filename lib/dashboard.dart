@@ -1,4 +1,4 @@
-import 'package:Scholar_co/home.dart';
+import 'package:Scholar_co/model/teacher.dart';
 import 'package:Scholar_co/notifications/notification.dart';
 import 'package:Scholar_co/teachers/teachers.dart';
 import 'package:flutter/material.dart';

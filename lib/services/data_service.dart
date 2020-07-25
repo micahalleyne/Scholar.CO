@@ -15,8 +15,8 @@ class DataService {
   }
 
   // saveTeacher
-  Future<void> saveTeacher(fname, lname, grade, subject, user) {
-    final teacherRef = connection.child('teachers').child(user.uid);
+  Future<void> saveTeacher(fname, lname, grade, subject) {
+    final teacherRef = connection.child('teachers').child(uid);
     teacherRef.set({
       'fname': fname,
       'lname': lname,

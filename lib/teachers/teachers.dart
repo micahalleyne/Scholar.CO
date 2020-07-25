@@ -1,6 +1,38 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:Scholar_co/model/teacher.dart';
+
+class TeachersData extends StatefulWidget {
+  _TeachersDataState createState() => _TeachersDataState();
+}
+
+class _TeachersDataState extends State<TeachersData> {
+  @override
+  Widget build(BuildContext context) {
+    final dataRef = FirebaseDatabase.instance.reference().child('teachers');
+    return StreamBuilder(
+        stream: dataRef.onValue,
+        builder: (BuildContext context, AsyncSnapshot<Event> snapshot) {
+          if (snapshot.hasData) {
+            List<Teacher> list = [];
+            Map<dynamic, dynamic> map = snapshot.data.snapshot.value;
+            map.forEach((k, v) => list.add(Teacher(
+                fname: v['fname'],
+                lname: v['lname'],
+                grade: v['grade'],
+                subject: v['subject'],
+                uid: v['uid'])));
+            return Teachers(teachers: list);
+          } else {
+            return Container();
+          }
+        });
+  }
+}
 
 class Teachers extends StatefulWidget {
+  final List<Teacher> teachers;
+  Teachers({this.teachers});
   _TeachersState createState() => _TeachersState();
 }
 
@@ -62,9 +94,9 @@ class _TeachersState extends State<Teachers> {
                   ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: 5,
+                      itemCount: widget.teachers.length,
                       itemBuilder: (context, index) {
-                        return Teacher();
+                        return SingleTeacher(teacher: widget.teachers[index]);
                       }),
                 ],
               ),
@@ -76,7 +108,9 @@ class _TeachersState extends State<Teachers> {
   }
 }
 
-class Teacher extends StatelessWidget {
+class SingleTeacher extends StatelessWidget {
+  final Teacher teacher;
+  SingleTeacher({Key key, this.teacher}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,13 +126,13 @@ class Teacher extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.fromLTRB(0, 15.0, 0, 15.0),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Color(0xFF0FFF95),
-                    width: 8,
-                  ),
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.white,
+                border: Border.all(
+                  color: Color(0xFF0FFF95),
+                  width: 8,
                 ),
+              ),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
                   20,
@@ -120,7 +154,7 @@ class Teacher extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Name',
+                          teacher.fname,
                           style: TextStyle(
                             color: Color(0xff6c757d),
                             fontSize: 22,
@@ -131,7 +165,7 @@ class Teacher extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          'Class',
+                          teacher.subject,
                           style: TextStyle(
                             color: Color(0xff6c757d),
                             fontSize: 22,
@@ -142,7 +176,7 @@ class Teacher extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          'Age Group',
+                          teacher.grade,
                           style: TextStyle(
                             color: Color(0xff6c757d),
                             fontSize: 22,
