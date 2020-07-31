@@ -145,7 +145,7 @@ class SingleTeacher extends StatelessWidget {
                     CircleAvatar(
                       radius: 60,
                       backgroundImage: NetworkImage(
-                          'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80'),
+                          'https://images.unsplash.com/photo-1518882570151-157128e78fa1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'),
                     ),
                     SizedBox(
                       width: 40,
@@ -165,7 +165,7 @@ class SingleTeacher extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          teacher.subject,
+                          teacher.grade,
                           style: TextStyle(
                             color: Color(0xff6c757d),
                             fontSize: 22,
@@ -176,7 +176,7 @@ class SingleTeacher extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          teacher.grade,
+                          teacher.subject,
                           style: TextStyle(
                             color: Color(0xff6c757d),
                             fontSize: 22,

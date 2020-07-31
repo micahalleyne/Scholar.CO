@@ -1,23 +1,21 @@
+import 'package:Scholar_co/home/home.dart';
 import 'package:Scholar_co/home/landing.dart';
-import 'package:Scholar_co/services/auth.dart';
-import 'package:Scholar_co/profile/log_in.dart';
 import 'package:Scholar_co/model/user.dart';
+import 'package:Scholar_co/services/data_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Signup extends StatefulWidget {
-  _SignupState createState() => _SignupState();
+class PSignup extends StatefulWidget {
+  _PSignupState createState() => _PSignupState();
 }
 
-class _SignupState extends State<Signup> {
-  // variables for user email & password
-
-  String email = "";
-  String password = "";
+class _PSignupState extends State<PSignup> {
+  String pname = "";
+  String agroup = "";
   final _formKey = GlobalKey<FormState>();
-  Auth auth = Auth();
-
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return Scaffold(
       backgroundColor: Color(0xf582C9E0),
       body: Padding(
@@ -32,26 +30,26 @@ class _SignupState extends State<Signup> {
                     height: 250,
                   ),
                   Text(
-                    'Sign Up',
+                    'Program Sign Up',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 45,
+                      fontSize: 40,
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 40,
                   ),
                   TextFormField(
                     obscureText: false,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                    validator: (val) =>
+                        val.isEmpty ? 'Enter Program Name' : null,
                     onChanged: (val) {
-                      setState(() => email = val.trim());
+                      setState(() => pname = val.trim());
                     },
                     decoration: InputDecoration(
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        hintText: 'Email',
+                        hintText: 'Program Name',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32.0))),
                   ),
@@ -59,20 +57,17 @@ class _SignupState extends State<Signup> {
                     height: 30,
                   ),
                   TextFormField(
-                    obscureText: true,
-                    validator: (val) => val.length < 6
-                        ? 'Enter a password 6+ chars long'
-                        : null,
+                    obscureText: false,
+                    validator: (val) => val.isEmpty ? 'Enter Age Group' : null,
                     onChanged: (val) {
-                      setState(() => password = val.trim());
+                      setState(() => agroup = val.trim());
                     },
                     decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      hintText: 'Password',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32.0)),
-                    ),
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'Age Group',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                   ),
                   SizedBox(
                     height: 40,
@@ -86,12 +81,11 @@ class _SignupState extends State<Signup> {
                       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          User user = await auth.registerUser(email, password);
-                          print(user.uid);
-                          print(user.email);
+                          await DataService(uid: user.uid)
+                              .saveProgram(pname, agroup);
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Landing()),
+                            MaterialPageRoute(builder: (context) => Home()),
                           );
                         }
                       },
@@ -117,11 +111,11 @@ class _SignupState extends State<Signup> {
                       onPressed: () async {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Login()),
+                          MaterialPageRoute(builder: (context) => Landing()),
                         );
                       },
                       child: Text(
-                        "Login",
+                        "Back",
                         style: TextStyle(
                           color: Color(0xf582C9E0),
                         ),

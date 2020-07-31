@@ -2,7 +2,7 @@ import 'package:Scholar_co/services/auth.dart';
 import 'package:Scholar_co/profile/sign_up.dart';
 import 'package:Scholar_co/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:Scholar_co/home.dart';
+import 'package:Scholar_co/home/home.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -94,7 +94,7 @@ class _LoginState extends State<Login> {
                         if (user != null) {
                           alertDialog(context);
                           Navigator.push(
-                          context,
+                            context,
                             MaterialPageRoute(builder: (context) => Home()),
                           );
                         } else {
@@ -146,11 +146,10 @@ class _LoginState extends State<Login> {
 }
 
 showAlertDialog(BuildContext context) {
-
   // set up the button
   Widget okButton = FlatButton(
     child: Text("OK"),
-    onPressed: () { 
+    onPressed: () {
       Navigator.of(context).pop();
     },
   );
@@ -174,11 +173,10 @@ showAlertDialog(BuildContext context) {
 }
 
 alertDialog(BuildContext context) {
-
   // set up the button
   Widget okButton = FlatButton(
     child: Text("OK"),
-    onPressed: () { 
+    onPressed: () {
       Navigator.of(context).pop();
     },
   );

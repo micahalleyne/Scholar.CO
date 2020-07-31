@@ -1,22 +1,15 @@
-import 'dart:developer';
-
-import 'package:Scholar_co/home.dart';
-import 'package:Scholar_co/landing.dart';
-import 'package:Scholar_co/services/auth.dart';
+import 'package:Scholar_co/home/home.dart';
+import 'package:Scholar_co/home/landing.dart';
 import 'package:Scholar_co/services/data_service.dart';
 import 'package:Scholar_co/model/user.dart';
-import 'package:Scholar_co/model/teacher.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TLogin extends StatefulWidget {
-  _TLoginState createState() => _TLoginState();
+class TSignup extends StatefulWidget {
+  _TSignupState createState() => _TSignupState();
 }
 
-class _TLoginState extends State<TLogin> {
-  String email = "";
-  String password = "";
+class _TSignupState extends State<TSignup> {
   String fname = "";
   String lname = "";
   String grade = "";
@@ -39,7 +32,7 @@ class _TLoginState extends State<TLogin> {
                     height: 175,
                   ),
                   Text(
-                    'Teacher Sign Up',
+                    'Program Sign Up',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 40,

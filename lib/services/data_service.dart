@@ -25,6 +25,14 @@ class DataService {
     });
   }
 
+  Future<void> saveProgram(pname, agroup) {
+    final programRef = connection.child('programs').child(uid);
+    programRef.set({
+      'pname': pname,
+      'agroup': agroup,
+    });
+  }
+
   // saveProgram
 
   // saveOrganization

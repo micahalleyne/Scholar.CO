@@ -1,5 +1,6 @@
-import 'package:Scholar_co/dashboard.dart';
+import 'package:Scholar_co/home/dashboard.dart';
 import 'package:Scholar_co/profile/sign_up.dart';
+import 'package:Scholar_co/programs/programs.dart';
 import 'package:Scholar_co/services/auth.dart';
 import 'package:Scholar_co/teachers/teachers.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class _HomeState extends State<Home> {
   final widgetOptions = [
     Dashboard(),
     TeachersData(),
+    ProgramsData(),
     Not(),
   ];
   @override
@@ -78,6 +80,20 @@ class _HomeState extends State<Home> {
             ),
             title: Text(
               'Teachers',
+              style: TextStyle(
+                fontSize: 15,
+                color: Color(0xFF6c757d),
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.business,
+              size: 35,
+              color: Color(0xFF6c757d),
+            ),
+            title: Text(
+              'Programs',
               style: TextStyle(
                 fontSize: 15,
                 color: Color(0xFF6c757d),
