@@ -5,7 +5,6 @@ import 'package:Scholar_co/services/auth.dart';
 import 'package:Scholar_co/teachers/teachers.dart';
 import 'package:flutter/material.dart';
 import 'package:Scholar_co/notifications/notification.dart';
-import 'package:Scholar_co/profile/log_in.dart';
 
 class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();

@@ -1,3 +1,4 @@
+import 'package:Scholar_co/teachers/teacher_profile.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:Scholar_co/model/teacher.dart';
@@ -117,75 +118,84 @@ class SingleTeacher extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: Column(
         children: [
-          Card(
-            elevation: 4,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            child: Container(
-              height: 215,
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.fromLTRB(0, 15.0, 0, 15.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: Colors.white,
-                border: Border.all(
-                  color: Color(0xFF0FFF95),
-                  width: 8,
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TProfile(teacher: teacher)),
+              );
+            },
+            child: Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
+              child: Container(
+                height: 215,
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.fromLTRB(0, 15.0, 0, 15.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Color(0xFF0FFF95),
+                    width: 8,
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  20,
-                  30,
-                  20,
-                  30,
-                ),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 60,
-                      backgroundImage: NetworkImage(
-                          'https://images.unsplash.com/photo-1518882570151-157128e78fa1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'),
-                    ),
-                    SizedBox(
-                      width: 40,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          teacher.fname,
-                          style: TextStyle(
-                            color: Color(0xff6c757d),
-                            fontSize: 22,
-                            fontWeight: FontWeight.w200,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    20,
+                    30,
+                    20,
+                    30,
+                  ),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundImage: NetworkImage(
+                            'https://images.unsplash.com/photo-1518882570151-157128e78fa1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'),
+                      ),
+                      SizedBox(
+                        width: 40,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            teacher.fname,
+                            style: TextStyle(
+                              color: Color(0xff6c757d),
+                              fontSize: 22,
+                              fontWeight: FontWeight.w200,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          teacher.grade,
-                          style: TextStyle(
-                            color: Color(0xff6c757d),
-                            fontSize: 22,
-                            fontWeight: FontWeight.w200,
+                          SizedBox(
+                            height: 10,
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          teacher.subject,
-                          style: TextStyle(
-                            color: Color(0xff6c757d),
-                            fontSize: 22,
-                            fontWeight: FontWeight.w200,
+                          Text(
+                            teacher.grade,
+                            style: TextStyle(
+                              color: Color(0xff6c757d),
+                              fontSize: 22,
+                              fontWeight: FontWeight.w200,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            teacher.subject,
+                            style: TextStyle(
+                              color: Color(0xff6c757d),
+                              fontSize: 22,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

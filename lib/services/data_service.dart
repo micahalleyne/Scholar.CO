@@ -27,7 +27,9 @@ class DataService {
 
   Future<void> saveProgram(pname, agroup) {
     final programRef = connection.child('programs').child(uid);
-    programRef.set({
+    programRef.
+        // push().
+        set({
       'pname': pname,
       'agroup': agroup,
     });

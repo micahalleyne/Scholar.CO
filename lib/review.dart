@@ -1,23 +1,14 @@
-import 'package:Scholar_co/home/home.dart';
-import 'package:Scholar_co/home/landing.dart';
-import 'package:Scholar_co/services/data_service.dart';
-import 'package:Scholar_co/model/user.dart';
+import 'package:Scholar_co/teachers/teacher_profile.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class TSignup extends StatefulWidget {
-  _TSignupState createState() => _TSignupState();
+class Review extends StatefulWidget {
+  _ReviewState createState() => _ReviewState();
 }
 
-class _TSignupState extends State<TSignup> {
-  String fname = "";
-  String lname = "";
-  String grade = "";
-  String subject = "";
+class _ReviewState extends State<Review> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
     return Scaffold(
       backgroundColor: Color(0xf582C9E0),
       body: Padding(
@@ -32,7 +23,7 @@ class _TSignupState extends State<TSignup> {
                     height: 175,
                   ),
                   Text(
-                    'Teacher Sign Up',
+                    'Review',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 40,
@@ -44,9 +35,9 @@ class _TSignupState extends State<TSignup> {
                   TextFormField(
                     obscureText: false,
                     validator: (val) => val.isEmpty ? 'Enter First Name' : null,
-                    onChanged: (val) {
-                      setState(() => fname = val.trim());
-                    },
+                    // onChanged: (val) {
+                    //   setState(() => fname = val.trim());
+                    // },
                     decoration: InputDecoration(
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -60,47 +51,13 @@ class _TSignupState extends State<TSignup> {
                   TextFormField(
                     obscureText: false,
                     validator: (val) => val.isEmpty ? 'Enter Last Name' : null,
-                    onChanged: (val) {
-                      setState(() => lname = val.trim());
-                    },
+                    // onChanged: (val) {
+                    //   setState(() => lname = val.trim());
+                    // },
                     decoration: InputDecoration(
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: 'Last Name',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0))),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    obscureText: false,
-                    keyboardType: TextInputType.number,
-                    validator: (val) =>
-                        val.isEmpty ? 'Only Enter a Number' : null,
-                    onChanged: (val) {
-                      setState(() => grade = val.trim());
-                    },
-                    decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        hintText: 'Grade',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0))),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    obscureText: false,
-                    validator: (val) => val.isEmpty ? 'Enter a Subject' : null,
-                    onChanged: (val) {
-                      setState(() => subject = val.trim());
-                    },
-                    decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        hintText: 'Subject',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32.0))),
                   ),
@@ -115,17 +72,13 @@ class _TSignupState extends State<TSignup> {
                       minWidth: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                       onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          await DataService(uid: user.uid)
-                              .saveTeacher(fname, lname, grade, subject);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Home()),
-                          );
-                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TProfile()),
+                        );
                       },
                       child: Text(
-                        "Sign Up",
+                        "Submit",
                         style: TextStyle(
                           color: Color(0xf582C9E0),
                         ),
@@ -146,7 +99,7 @@ class _TSignupState extends State<TSignup> {
                       onPressed: () async {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Landing()),
+                          MaterialPageRoute(builder: (context) => TProfile()),
                         );
                       },
                       child: Text(

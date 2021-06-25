@@ -25,8 +25,13 @@ class Auth {
   }
 
   Future<User> loginUser(email, password) async {
-    AuthResult result = await _auth.signInWithEmailAndPassword(
-        email: email, password: password);
+    AuthResult result;
+    try {
+      result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } catch (e) {
+      return null;
+    }
     FirebaseUser user = result.user;
     return userFromFirebase(user);
   }

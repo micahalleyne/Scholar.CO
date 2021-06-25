@@ -26,7 +26,7 @@ class _DashboardState extends State<Dashboard> {
                     onPressed: () async {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Teachers()),
+                        MaterialPageRoute(builder: (context) => TeachersData()),
                       );
                     },
                     child: Text(

@@ -18,6 +18,7 @@ class _ProgramsDataState extends State<ProgramsData> {
             Map<dynamic, dynamic> map = snapshot.data.snapshot.value;
             map.forEach((k, v) => list.add(Program(
                 pname: v['pname'], agroup: v['agroup'], uid: v['uid'])));
+            print(list[0].agroup);
             return Programs(programs: list);
           } else {
             return Container();
@@ -164,7 +165,7 @@ class SingleProgram extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          program.agroup,
+                          "${program.agroup}",
                           style: TextStyle(
                             color: Color(0xff6c757d),
                             fontSize: 25,

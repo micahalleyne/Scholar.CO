@@ -86,20 +86,21 @@ class _LoginState extends State<Login> {
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           User user = await auth.loginUser(email, password);
-                          print(user.uid);
-                          print(user.email);
+                          // print(user.uid);
+                          // print(user.email);
+                          if (user != null) {
+                            // alertDialog(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Home()),
+                            );
+                          } else {
+                            print('hello');
+                            showAlertDialog(context);
+                          }
                         }
-                        FirebaseUser user =
-                            await FirebaseAuth.instance.currentUser();
-                        if (user != null) {
-                          alertDialog(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Home()),
-                          );
-                        } else {
-                          showAlertDialog(context);
-                        }
+                        // FirebaseUser user =
+                        //     await FirebaseAuth.instance.currentUser();
                       },
                       child: Text(
                         "Login",

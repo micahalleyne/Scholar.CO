@@ -1,6 +1,6 @@
 class Program {
   final String pname;
-  final String agroup;
+  final agroup;
   final String uid;
 
   Program({
